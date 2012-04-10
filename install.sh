@@ -1,2 +1,2 @@
-ln -s $HOME/dotfiles/.vimrc $HOME/.vimrc
-ln -s $HOME/dotfiles/.screenrc $HOME/.screenrc
+ln -s $HOME/git/dotfiles/.vimrc $HOME/.vimrc
+ln -s $HOME/git/dotfiles/.screenrc $HOME/.screenrc
