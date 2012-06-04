@@ -16,3 +16,12 @@ map <C-n>  :tabn<CR>
 map <C-p>  :tabp<CR>
 inoremap <C-j> <ESC>
 nnoremap <silent> <C-e> :vsp %:h<Cr>
+
+" 1行の最大長
+function! SetColumnWidthLimit()
+  setlocal textwidth=78
+  if exists('+colorcolumn')
+    setlocal colorcolumn=+1
+  endif
+endfun
+au Filetype perl,javascript,vim,php call SetColumnWidthLimit()
