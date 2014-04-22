@@ -1,8 +1,9 @@
 " default tab settings
 set expandtab
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set autoindent
+"set tabstop=4
+"set shiftwidth=4
+"set softtabstop=4
 set number
 syntax on
 
@@ -24,4 +25,6 @@ function! SetColumnWidthLimit()
     setlocal colorcolumn=+1
   endif
 endfun
-au Filetype perl,javascript,vim,php call SetColumnWidthLimit()
+
+filetype plugin on
+
