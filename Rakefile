@@ -4,6 +4,8 @@ DOTFILE_POSTFIX = ".dot";
 REPO_ROOT_DIR   =  File.dirname(__FILE__) 
 DOTVIM_FTPLUGIN = "#{Dir.home}/.vim/after/ftplugin"
 
+task :default => :install
+
 task :install => [:install_dotfiles, :install_dotvim];
   
 task :install_dotfiles, [:env] do |t, args|
@@ -24,8 +26,7 @@ task :install_dotfiles, [:env] do |t, args|
         end
       } 
       .each   { |dotfile|
-        system("ln -s #{ dotfile[:source] } #{ dotfile[:destination] }")
-        puts("[copy] #{ dotfile[:destination] }")
+        sh "ln -s #{ dotfile[:source] } #{ dotfile[:destination] }"
       } 
 end
 
@@ -49,8 +50,7 @@ task :install_dotvim =>  DOTVIM_FTPLUGIN do
       end
     } 
     .each   { |dotfile|
-      system("ln -s #{ dotfile[:source] } #{ dotfile[:destination] }")
-      puts("[copy] #{ dotfile[:destination] }")
+      sh "ln -s #{ dotfile[:source] } #{ dotfile[:destination] }"
     } 
 end
 
