@@ -6,28 +6,20 @@ DOTVIM_FTPLUGIN = "#{Dir.home}/.vim/after/ftplugin"
 
 task :default => :install
 
-task :install => [:install_dotfiles, :install_dotvim];
+task :install => [:install_dotfiles, :install_dotvim ];
   
 task :install_dotfiles, [:env] do |t, args|
+
   dot_files = Dir.new( REPO_ROOT_DIR )
-    .select{ |file| file.match(/#{DOTFILE_POSTFIX}$/) }
-    .map   { |file|
+    .select { |file| file.match(/#{DOTFILE_POSTFIX}$/) }
+    .each   { |file|
       name = File.basename(file,DOTFILE_POSTFIX)
-        {
-          :name        => name,
+      _create_symlink(
           :source      => File.expand_path( file ),
-          :destination => "#{Dir.home}/.#{name}",
-        }
-      }
-      .each   { |dotfile|
-        if File.symlink?( dotfile[:destination] ) then
-          File.delete( dotfile[:destination] )
-          puts("[delete] #{ dotfile[:destination] }")
-        end
-      } 
-      .each   { |dotfile|
-        sh "ln -s #{ dotfile[:source] } #{ dotfile[:destination] }"
-      } 
+          :destination =>  "#{Dir.home}/.#{name}"
+      )
+    }
+
 end
 
 
@@ -36,21 +28,28 @@ task :install_dotvim =>  DOTVIM_FTPLUGIN do
 
   SETTING_FILES_DIR = "#{REPO_ROOT_DIR}/dot.vim/after/ftplugin" 
   plugin_files = Dir.new( SETTING_FILES_DIR )
-    .select{ |file| file.match(/\.vim$/) }
-    .map   { |file| 
-      {
+    .select { |file| file.match(/\.vim$/) }
+    .each   { |file|
+      name = File.basename(file,DOTFILE_POSTFIX)
+      _create_symlink(
         :source      => File.expand_path( file ,SETTING_FILES_DIR ),
         :destination => "#{DOTVIM_FTPLUGIN}/#{file}",
-      }
+      )
     }
-    .each   { |dotfile|
-      if File.symlink?( dotfile[:destination] ) then
-        File.delete( dotfile[:destination] )
-        puts("[delete] #{ dotfile[:destination] }")
-      end
-    } 
-    .each   { |dotfile|
-      sh "ln -s #{ dotfile[:source] } #{ dotfile[:destination] }"
-    } 
+
+end
+
+def _create_symlink( args )
+
+  if File.symlink?( args[:destination] ) then
+    File.delete( args[:destination] )
+    puts("[delete] #{ args[:destination] }")
+  end
+
+  FileUtils.ln_s(
+    args[:source] , args[:destination],
+    :verbose => true
+  )
+
 end
 
