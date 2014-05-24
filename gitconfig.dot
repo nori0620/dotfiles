@@ -1,0 +1,25 @@
+[github]
+	user = norihiro.sakamoto
+[user]
+    name  = Norihiro Sakamoto
+    email = nori0620@gmail.com
+[include]
+    path  = ~/.gitconfig_local
+[core]
+    excludesfile   = ~/.gitignore_global
+    attributesfile = ~/.gitattributes_global
+    editor = vim
+[merge]
+    tool = vimdiff
+    renamelimit = 3000
+    ff = true
+[color]
+    ui = auto
+[diff]
+    tool = vimdiff
+[difftool]
+    prompt = true
+[push]
+    default = upstream
+[rerere]
+    enabled = true
