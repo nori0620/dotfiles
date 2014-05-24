@@ -1,5 +1,17 @@
 alias ls='ls -G'
 
+alias v='vim .'
+alias t='tig'
+alias p='popd'
+
+alias g='git'
+alias s='git status --short --branch'
+alias a='git add .'
+alias d='git diff'
+alias D='git diff --color-words'
+alias c='git diff --cached'
+alias C='git diff --cached --color-words'
+
 export HISTFILE=${HOME}/.zsh_history
 export SAVEHIST=100000
 export HISTSIZE=1000
