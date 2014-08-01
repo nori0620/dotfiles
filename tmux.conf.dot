@@ -1,6 +1,6 @@
 set -g default-terminal screen-256color
+set -sg escape-time 1
 setw -g mode-keys vi
-
 
 #like bim key bind
 bind s split-window -v
@@ -10,4 +10,14 @@ bind h select-pane -L
 bind j select-pane -D
 bind k select-pane -U
 bind l select-pane -R
+
+# ウィンドウリストの色を設定する
+setw -g window-status-fg white
+setw -g window-status-bg default
+setw -g window-status-attr dim
+
+# アクティブなウィンドウを目立たせる
+setw -g window-status-current-fg white
+setw -g window-status-current-bg red
+setw -g window-status-current-attr bright
 
