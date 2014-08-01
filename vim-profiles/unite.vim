@@ -4,8 +4,8 @@ nmap <Leader>u [unite]
 
 " maps {{{
 nmap [unite]n     <SID>(normally)
-nmap [unite]c     <SID>(buffer-dir)
-nmap [unite]C     <SID>(buffer-file)
+nmap [unite]d     <SID>(buffer-dir)
+nmap [unite]f     <SID>(buffer-file)
 nmap [unite]b     <SID>(buffer)
 nmap [unite]B     <SID>(all-buffer)
 "}}}
