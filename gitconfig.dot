@@ -20,6 +20,6 @@
 [difftool]
     prompt = true
 [push]
-    default = upstream
+#    default = upstream
 [rerere]
     enabled = true
