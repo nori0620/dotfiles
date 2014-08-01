@@ -11,6 +11,7 @@ alias d='git diff'
 alias D='git diff --color-words'
 alias c='git diff --cached'
 alias C='git diff --cached --color-words'
+alias swift='/Applications/Xcode6-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift'
 
 export HISTFILE=${HOME}/.zsh_history
 export SAVEHIST=100000

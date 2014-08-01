@@ -1,30 +1,46 @@
-" default tab settings
-set expandtab
-set autoindent
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set number
-syntax on
+" initial settings (edit for yourself)
+" my mapleader (default '\')
+let mapleader = ','
+noremap \ ,
 
-" indent
-set autoindent
-set nocindent
-set smartindent
+" local settings
+let s:profiles_dir_path =  expand('<sfile>:h') . '/vim-profiles/'
+let s:profile_names = [
+\ 'default',
+\ 'unite',
+\ 'bundles',
+\ 'maps',
+\ 'plugins',
+\]
 
-" mappings
-map <C-n>  :tabn<CR>
-map <C-p>  :tabp<CR>
-inoremap <C-j> <ESC>
-nnoremap <silent> <C-e> :vsp %:h<Cr>
-
-" 1行の最大長
-function! SetColumnWidthLimit()
-  setlocal textwidth=78
-  if exists('+colorcolumn')
-    setlocal colorcolumn=+1
+" local functions {{{
+"
+function! s:source_profile(name)"{{{
+  let l:path = printf('%s%s.vim', s:profiles_dir_path, a:name)
+  if filereadable(l:path)
+    execute printf('source %s', l:path)
   endif
-endfun
+endfunction"}}}
 
-filetype plugin on
+function! s:source_profiles(names)"{{{
+  for l:name in a:names
+    call s:source_profile(l:name)
+  endfor
+endfunction"}}}
 
+function! s:call_source_profiles(args)"{{{
+  call s:source_profiles(split(a:args, '[, :]'))
+endfunction"}}}
+
+"}}}
+
+" source bundles at first
+call s:source_profile('bundles')
+" source profiles
+call s:source_profiles(s:profile_names)
+
+" source local settings at last
+let g:path_to_vimrc_profile = '~/.vimrc_local'
+if filereadable(expand(g:path_to_vimrc_profile))
+  execute printf('source %s', expand(g:path_to_vimrc_profile))
+endif

@@ -2,13 +2,19 @@ require 'pp'
 
 DOTFILE_POSTFIX = ".dot";
 REPO_ROOT_DIR   =  File.dirname(__FILE__) 
+NeoBundleDir    = "#{Dir.home}/.neobundle"
 
 task :default => :install
 
-task :install => [:install_dotfiles, :install_dot_vim ,:install_dot_zsh];
+task :install => [
+  :install_dotfiles,
+  :install_dot_vim ,
+  :install_vim_profiles, 
+  :install_vim_neobundle, 
+  :install_dot_zsh
+];
   
 task :install_dotfiles, [:env] do |t, args|
-
   dot_files = Dir.new( REPO_ROOT_DIR )
     .select { |file| file.match(/#{DOTFILE_POSTFIX}$/) }
     .each   { |file|
@@ -21,39 +27,38 @@ task :install_dotfiles, [:env] do |t, args|
 
 end
 
-
-DOT_VIM_FTPLUGIN = "#{Dir.home}/.vim/after/ftplugin"
-directory DOT_VIM_FTPLUGIN
-task :install_dot_vim =>  DOT_VIM_FTPLUGIN do 
-
-  source_dir = "#{REPO_ROOT_DIR}/dot.vim/after/ftplugin" 
-  plugin_files = Dir.new( source_dir )
-    .select { |file| file.match(/\.vim$/) }
-    .each   { |file|
-      name = File.basename(file,DOTFILE_POSTFIX)
-      _create_symlink(
-        :source      => File.expand_path( file , source_dir),
-        :destination => "#{DOT_VIM_FTPLUGIN}/#{file}",
-      )
-    }
-
+task :install_dot_vim do 
+  source_dir = "#{REPO_ROOT_DIR}/dot.vim" 
+  _create_symlink(
+    :source      => File.expand_path( source_dir),
+    :destination =>  "#{Dir.home}/.vim"
+ )
 end
 
-DOT_ZSH_COMPLETION = "#{Dir.home}/.zsh/completion"
-directory DOT_ZSH_COMPLETION
-task :install_dot_zsh =>  DOT_ZSH_COMPLETION do 
+task :install_vim_profiles do
+  source_dir = "#{REPO_ROOT_DIR}/vim-profiles" 
+  _create_symlink(
+    :source      => File.expand_path( source_dir),
+    :destination => "#{Dir.home}/vim-profiles"
+ )
+end
 
-  SETTING_FILES_DIR = "#{REPO_ROOT_DIR}/dot.zsh/completion" 
-  plugin_files = Dir.new( SETTING_FILES_DIR )
-    .select { |file| file.match(/sh$/) }
-    .each   { |file|
-      name = File.basename(file,DOTFILE_POSTFIX)
-      _create_symlink(
-        :source      => File.expand_path( file ,SETTING_FILES_DIR ),
-        :destination => "#{DOT_ZSH_COMPLETION}/#{file}",
-      )
-    }
+task :install_dot_zsh do 
+  source_dir = "#{REPO_ROOT_DIR}/dot.zsh" 
+  _create_symlink(
+    :source      => File.expand_path( source_dir),
+    :destination =>  "#{Dir.home}/.zsh"
+ )
+end
 
+task :install_vim_neobundle do
+
+  unless File.exists?( NeoBundleDir )
+    sh %Q{mkdir -p #{NeoBundleDir} }
+    sh %Q{git clone git://github.com/Shougo/neobundle.vim.git ~/.neobundle/neobundle.vim}
+  end
+
+  sh %Q{vim -u ~/vim-profiles/bundles.vim +NeoBundleInstall +q}
 end
 
 def _create_symlink( args )
