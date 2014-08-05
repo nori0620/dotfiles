@@ -8,7 +8,7 @@ let s:profiles_dir_path =  expand('<sfile>:h') . '/vim-profiles/'
 let s:profile_names = [
 \ 'default',
 \ 'unite',
-\ 'bundles',
+\ 'neocomplcache',
 \ 'maps',
 \ 'plugins',
 \]
