@@ -5,7 +5,9 @@ if has('vim_starting')
   else
     finish
   endif
-  call neobundle#rc(expand('~/.neobundle'))
+  call neobundle#begin(expand('~/.neobundle'))
+  NeoBundleFetch 'Shougo/neobundle.vim'
+  call neobundle#end()
 endif
 
 NeoBundle 'Shougo/neobundle.vim'
