@@ -1,0 +1,3 @@
+inoremap <C-j> <ESC>
+nnoremap <silent> <C-e> :vsp %:h<Cr>
+
