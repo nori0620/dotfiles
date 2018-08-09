@@ -10,6 +10,7 @@ if has('vim_starting')
   call neobundle#end()
 endif
 
+call neobundle#begin(expand('~/.neobundle'))
 NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/unite.vim'
@@ -17,6 +18,7 @@ NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'tpope/vim-endwise.git' 
+call neobundle#end()
 
 filetype plugin on
 filetype indent on
