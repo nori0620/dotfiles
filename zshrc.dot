@@ -34,3 +34,7 @@ RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 fpath=(~/.zsh/completion $fpath)
 autoload -U compinit
 compinit -u
+
+# go
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
