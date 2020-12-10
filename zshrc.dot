@@ -30,6 +30,9 @@ zstyle ':vcs_info:*' actionformats '[%b|%a]'
 precmd () { vcs_info }
 RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 
+# Prevent tmux exiting with Ctrl-d?
+set -o ignoreeof
+
 # completion
 fpath=(~/.zsh/completion $fpath)
 autoload -U compinit

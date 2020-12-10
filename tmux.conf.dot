@@ -12,13 +12,12 @@ bind k select-pane -U
 bind l select-pane -R
 
 # ウィンドウリストの色を設定する
-setw -g window-status-fg white
-setw -g window-status-bg default
-setw -g window-status-attr dim
+setw -g window-status-style bg="white"
+setw -g window-status-style fg="dim"
+setw -g window-status-style "default"
 
 # アクティブなウィンドウを目立たせる
-setw -g window-status-current-fg white
-setw -g window-status-current-bg red
-setw -g window-status-current-attr bright
+setw -g window-status-current-style bg="white"
+setw -g window-status-current-style fg="bright"
+setw -g window-status-current-style "red"
 
-unbind -n C-d
